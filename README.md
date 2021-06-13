@@ -27,7 +27,7 @@ pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu100/torch1.4
   * For **configs\_base_\models\mask_rcnn_r50_fpn.py** file
     * change **num_classes=1**
   * For **configs\_base_\datasets\coco_instance.py** file
-    * change **data_root = 'data/pig/'** (line 2)
+    * change **data_root = 'data/pig/'**
     * search **img_scale**, change it to (512, 256)
     * change **workers_per_gpu=0**
     * change **samples_per_gpu=4**
