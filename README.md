@@ -24,7 +24,7 @@ pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu100/torch1.4
 ## Prepare in advance
 * You should first process the data into coco format and put it in the **data** path.
 * For subsequent training, you should modify the file under **config**. In our case, we have modified the following parts:
-  * For **configs\_base_\models\mask_rcnn_r50_fpn.py** file
+  * For **configs\_base_\models\faster_rcnn_r50_fpn.py** file
     * change **num_classes=1**
   * For **configs\_base_\datasets\coco_instance.py** file
     * change **data_root = 'data/pig/'**
@@ -36,7 +36,7 @@ pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu100/torch1.4
     * change **CLASSES = ('pig')** (line 32)
   * For **\mmdet\core\evaluation\class_names.py** file
     * change **coco_classes** (line 69)
-* Besides, for **mask_rcnn_r50_fpn_1x.py**, we also made the following changes to this config file:
+* Besides, for **faster_rcnn_r50_fpn_1x.py**, we also made the following changes to this config file:
 ```python
 optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
 checkpoint_config = dict(interval=5)
@@ -45,20 +45,20 @@ total_epochs = 10
 work_dir = './logs_pig/mask_rcnn_r50/normal'
 ```
 ## Train
-Take Mask R-CNN-R50 as example, you should cd the project root path, latter execute the following command
+Take Faster R-CNN-R50 as example, you should cd the project root path, latter execute the following command
 ```
-sh scripts/train_mask_rcnn_r50_fpn_1x.sh
+sh scripts/train_faster_rcnn_r50_fpn_1x.sh
 ```
 You can see the logs by following command
 ```
-tail -f logs_console/train_mask_rcnn_r50_fpn_1x.out
+tail -f logs_console/train_faster_rcnn_r50_fpn_1x.out
 ```
 ## Test
-Take Mask R-CNN-R50 as example, you should cd the project root path, latter execute the following command
+Take Faster R-CNN-R50 as example, you should cd the project root path, latter execute the following command
 ```
-CUDA_VISIBLE_DEVICES=0 python tools/test.py configs/pig/mask_rcnn_r50_fpn_1x.py logs_pig/mask_rcnn_r50/normal/latest.pth --show-dir show_test/mask_rcnn_r50/normal --eval bbox segm
+CUDA_VISIBLE_DEVICES=0 python tools/test.py configs/pig/faster_rcnn_r50_fpn_1x.py logs_pig/faster_rcnn_r50/normal/latest.pth --show-dir show_test/faster_rcnn_r50/normal --eval bbox segm
 ```
-Then at **show_test/mask_rcnn_r50/normal** you will find the predict result with bbox and segmentation.
+Then at **show_test/faster_rcnn_r50/normal** you will find the predict result with bbox and segmentation.
 ## Postscript
 * If you want to modify the related display effects of the detection box or segmentation color, such as the color of the detection box, the thickness of the detection box, etc., you can modify the **show_result** method in **/mmdet/models/detectors/base.py**. For details, please refer to this [document](https://mmdetection.readthedocs.io/en/latest/_modules/mmdet/models/detectors/base.html?highlight=imshow_det_bboxes#). Pay attention to re-execute **pip install -v -e .** command after modification.
 * When the loss value is nan. The solution to this problem can be [referred to](https://github.com/open-mmlab/mmdetection/issues/3013). Specifically, add the following line of code **optimizer_config = dict(_delete_=True, grad_clip=dict(max_norm=35, norm_type=2))** to the config file.
