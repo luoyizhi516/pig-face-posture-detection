@@ -42,7 +42,7 @@ optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
 checkpoint_config = dict(interval=5)
 evaluation = dict(interval=1)
 total_epochs = 10
-work_dir = './logs_pig/mask_rcnn_r50/normal'
+work_dir = './logs_pig/faster_rcnn_r50/normal'
 ```
 ## Train
 Take Faster R-CNN-R50 as example, you should cd the project root path, latter execute the following command
