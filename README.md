@@ -58,9 +58,9 @@ Take Faster R-CNN-R50 as example, you should cd the project root path, latter ex
 ```
 CUDA_VISIBLE_DEVICES=0 python tools/test.py configs/pig/faster_rcnn_r50_fpn_1x.py logs_pig/faster_rcnn_r50/normal/latest.pth --show-dir show_test/faster_rcnn_r50/normal --eval bbox
 ```
-Then at **show_test/faster_rcnn_r50/normal** you will find the predict result with bbox and segmentation.
+Then at **show_test/faster_rcnn_r50/normal** you will find the predict result with bbox.
 ## Postscript
-* If you want to modify the related display effects of the detection box or segmentation color, such as the color of the detection box, the thickness of the detection box, etc., you can modify the **show_result** method in **/mmdet/models/detectors/base.py**. For details, please refer to this [document](https://mmdetection.readthedocs.io/en/latest/_modules/mmdet/models/detectors/base.html?highlight=imshow_det_bboxes#). Pay attention to re-execute **pip install -v -e .** command after modification.
+* If you want to modify the related display effects of the detection box color, such as the color of the detection box, the thickness of the detection box, etc., you can modify the **show_result** method in **/mmdet/models/detectors/base.py**. For details, please refer to this [document](https://mmdetection.readthedocs.io/en/latest/_modules/mmdet/models/detectors/base.html?highlight=imshow_det_bboxes#). Pay attention to re-execute **pip install -v -e .** command after modification.
 * When the loss value is nan. The solution to this problem can be [referred to](https://github.com/open-mmlab/mmdetection/issues/3013). Specifically, add the following line of code **optimizer_config = dict(_delete_=True, grad_clip=dict(max_norm=35, norm_type=2))** to the config file.
 * If you encounter the following problem **AttributeError: module 'pycocotools' has no attribute '__version__'**. You should execute the following commands in order: 
   * pip uninstall mmpycocotools
